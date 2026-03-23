@@ -19,12 +19,12 @@ public class GameBootstrap : MonoBehaviour
 
     private void Awake()
     {
-        EnsurePixel();
+        EnsurePixelTexture();
         SetupCamera();
         ShowHomeScreen();
     }
 
-    private void EnsurePixel()
+    private void EnsurePixelTexture()
     {
         if (pixel != null)
         {
@@ -34,6 +34,14 @@ public class GameBootstrap : MonoBehaviour
         pixel = new Texture2D(1, 1);
         pixel.SetPixel(0, 0, Color.white);
         pixel.Apply();
+    }
+
+    private void EnsureGuiStyles()
+    {
+        if (titleStyle != null && bodyStyle != null && buttonStyle != null)
+        {
+            return;
+        }
 
         titleStyle = new GUIStyle(GUI.skin.label)
         {
@@ -162,7 +170,8 @@ public class GameBootstrap : MonoBehaviour
 
     private void OnGUI()
     {
-        EnsurePixel();
+        EnsurePixelTexture();
+        EnsureGuiStyles();
 
         if (currentState == ScreenState.Home)
         {
